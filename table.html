@@ -1,0 +1,261 @@
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="./bootstrap/CSS/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="./bootstrap/CSS/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./bootstrap/CSS/form.css">
+
+    <script src="./bootstrap/Javascript/jquery-3.4.1.slim.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="./bootstrap/Javascript/form.js"></script>
+    <script src="./bootstrap/Javascript/bootstrap.min.js"></script>
+
+    <script src="./bootstrap/Javascript/jquery.dataTables.min.js"></script>
+
+</head>
+
+<body>
+
+
+    <div class="col-md-7 col-md-offset-3">
+        <center> <b class="registration">STUDENT INFORMATION TABLE</b> </center>
+
+    </div>
+    <div class="container">
+
+
+        <table id="table" class="display" style="width: 100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Gender</th>
+                    <th>Grade</th>
+                    <th>Hobbies</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <div>
+                <tbody>
+
+                </tbody>
+
+            </div>
+        </table>
+
+        <button type="button" class="btn btn-primary addUser" id="addUser">Add New User</button>
+
+
+        <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="addUserModalLabel">ADD NEW USER</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                            <span aria-hidden="true">&times;</span>
+
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+
+
+
+                        <form class="form-group">
+                            <center><b class="registration">REGISTRATION FORM
+
+                                </b>
+                            </center>
+                            <div class="form-group">
+                                <br>
+
+                                <label>Name: </label>
+                                <input type="text" id="name" class="form-control" required><br>
+
+
+
+                                <label>address: </label>
+                                <input type="text" id="address" class="form-control" required>
+
+                                <label>Gender:</label>
+                                <div class="radio">
+                                    <input type="radio" id="male" value="male" name="gender" checked>Male
+                                    <input type="radio" id="female" value="female" name="gender">Female
+                                </div>
+
+                                <label>Grade:</label>
+
+
+                                <select name="grade" id="grade" onchange="getGrade()">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+
+                                </select>
+
+                                <br>
+
+                                <label>Hobbies:</label>
+
+                                <div class="checkbox">
+                                    <input type="checkbox" name="hobbies" value="cricket">cricket
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" name="hobbies" value="football">football
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" name="hobbies" value="basketball">basketball
+                                </div>
+
+
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" id="save"> SAVE</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">CANCEL</button>
+
+
+                        </form>
+
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- start: Delete Coupon Modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="deleteModalLabel">Warning!</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+
+
+                    </div>
+                    <div class="modal-body">
+                        <h4> Are you sure you want to DELETE ?</h4>
+
+                    </div>
+                    <!--/modal-body-collapse -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id="btnDeleteYes">Yes</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                    </div>
+                    <!--/modal-footer-collapse -->
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+            aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="editModalLabel">EDIT</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                            <span aria-hidden="true" onclick="showTable()">&times;</span>
+                        </button>
+
+
+                    </div>
+                    <div class="modal-body">
+                        <form class="text">
+                            <center><b class="registration">EDIT
+
+                                </b>
+                            </center>
+                            <div class="form-group">
+                                <br>
+
+                                <label for="">Name: </label>
+                                <input id="newName" type="text" name="name" class="form-control" required><br>
+
+
+
+                                <label for="">address: </label>
+                                <input id="newAddress" type="text" name="address" class="form-control" required>
+
+                                <label for="">Gender:</label>
+                                <div class="radio">
+                                    <input id="newMale" type="radio" value="male" name="gender">Male
+                                </div>
+                                <div class="radio">
+                                    <input id="newFemale" type="radio" value="female" name="gender">Female
+                                </div>
+                                <label>Grade:</label>
+
+
+                                <select name="grade" id="newGrade" onchange="getGrade()">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+
+                                </select>
+
+                                <br>
+
+                                <label>Hobbies:</label>
+
+                                <div class="checkbox">
+                                    <input type="checkbox" name="hobbies" id="cricket" value="cricket">cricket
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" name="hobbies" id="football" value="football">football
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox" name="hobbies" id="basketball" value="basketball">basketball
+                                </div>
+
+
+
+
+                            </div>
+                            <!--/modal-body-collapse -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" id="btnEdit">Edit</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal"
+                                    onclick="showTable()">Cancel</button>
+                            </div>
+                            <!--/modal-footer-collapse -->
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+
+        </div>
+    </div>
+</body>
+
+</html>

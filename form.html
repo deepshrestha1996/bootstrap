@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="./bootstrap/CSS/bootstrap.min.css">
+
+    <title>Registration Form</title>
+    <link rel="stylesheet" type="text/css" href="./bootstrap/CSS/form.css">
+</head>
+
+<body>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="./bootstrap/Javascript/jquery-3.4.1.slim.min.js"></script>
+    <script src="./bootstrap/Javascript/form.js"></script>
+    <script src="./bootstrap/Javascript/popper.min.js"></script>
+
+    <script src="./bootstrap/Javascript/bootstrap.min.js"></script>
+    <script>
+        let users = [];
+        const addUsers = (ev) => {
+            ev.preventDefault();
+            if (document.getElementById('male').checked) {
+                var selectedGender = document.getElementById('male').value;
+            }
+            if (document.getElementById('female').checked) {
+                var selectedGender = document.getElementById('female').value;
+            }
+            let user = {
+                id: Date.now(),
+                name: document.getElementById('name').value,
+                address: document.getElementById('address').value,
+                gender: selectedGender,
+            }
+
+            users.push(user);
+            document.forms[0].reset();
+
+            localStorage.setItem("userList", JSON.stringify(users));
+
+
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('save').addEventListener('click', addUsers)
+        })
+
+
+    </script>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3" id="form">
+
+
+                <form class="text">
+                    <center><b class="registration">REGISTRATION FORM
+
+                        </b>
+                    </center>
+                    <div class="form-group">
+                        <br>
+
+                        <label>Name: </label>
+                        <input type="text" id="name" name="name" class="form-control" required><br>
+
+
+
+                        <label>address: </label>
+                        <input type="text" id="address" name="address" class="form-control" required>
+
+                        <label>Gender:</label>
+                        <div class="radio">
+                            <input type="radio" id="male" value="male" name="gender" checked>Male
+                            <input type="radio" id="female" value="female" name="gender">Female
+                        </div>
+
+                        <label>Grade:</label>
+
+
+                        <select name="grade" id="list" onchange="getSelectedValue()">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+
+                        </select>
+
+                        <!-- <div class="dropdown">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="selection">1</span><span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li><a href="#">6</a></li>
+
+                            </ul>
+                        </div> -->
+                        <br>
+
+                        <label>Hobbies:</label>
+
+                        <div class="checkbox">
+                            <input type="checkbox" value="cricket">cricket
+                        </div>
+                        <div class="checkbox">
+                            <input type="checkbox" value="football">football
+                        </div>
+                        <div class="checkbox">
+                            <input type="checkbox" value="baskeball">basketball
+                        </div>
+
+
+                    </div>
+
+                    <button type="button" class="btn btn-primary" id="save"> SAVE</button>
+                    <button type="button" class="btn btn-secondary" id="showUserTable" onclick="showTable()">SHOW USERS
+                        INFORMATION</button>
+
+
+                </form>
+
+            </div>
+
+        </div>
+
+
+    </div>
+</body>
+
+</html>
